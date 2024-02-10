@@ -8,7 +8,7 @@ exports.registerUser = async (req, res) => {
 
   try {
     const { name, username, email, phone, password } = req.body;
-    const existingUser = await User.findOne({ $or: [{ email }, { phone }] });
+    const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ error: 'Email or phone number already registered' });
     }
