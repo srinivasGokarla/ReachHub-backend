@@ -5,7 +5,8 @@ exports.getTopPlayers = async (req, res) => {
 
     try {
         const topPlayers = await Chess.find()
-       
+        .sort({ 'perfs.classical.rating': -1 })
+        .limit(50);
       res.json(topPlayers);
     } catch (error) {
       res.status(500).json({ error: error.message });
@@ -52,7 +53,8 @@ exports.getTopPlayers = async (req, res) => {
     try {
         const topPlayers = await Chess.find()
         
-  
+        .sort({ 'perfs.classical.rating': -1 })
+        .limit(50);
       const csvData = topPlayers.map(player => ({
         username: player.username,
         rating30DaysAgo: player.perfs.classical.rating - 30 * player.perfs.classical.progress,
